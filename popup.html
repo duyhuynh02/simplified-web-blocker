@@ -2,10 +2,26 @@
     <head>
         <meta charset="UTF-8" />
         <title>Blocking websites</title>
+        <style>
+            body {
+                width: 500px;
+            }
+            button {
+                background-color: #d14e81;
+                border: none;
+                color: white;
+                padding: 8px 16px;
+                text-align: center;
+                font-size: 16px;
+            }
+        </style>
     </head>
     <body>
-        <div>
-            <p>Nothing here really</p>
-        </div>
+        <h1>Choose the website you want to block</h1>
+        <input type="text" id="siteInput" placeholder="Enter website">
+        <button id="addSite">Add site</button>
+        <h2>List of sites</h2>
+        <ul id="siteList"></ul>
+        <script src="popup.js"></script>
     </body>
 </html>
