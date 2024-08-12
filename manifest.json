@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "Website Blocker",
+    "version": "1.0",
+    "description": "An extention to block websites",
+    "permissions": ["webRequest", "webRequestBlocking", "storage", "tabs"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "icons": {
+      "128": "128icon.png"
+    }
+}
+  
