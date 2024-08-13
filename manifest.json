@@ -3,7 +3,10 @@
     "name": "Website Blocker",
     "version": "1.0",
     "description": "An extention to block websites",
-    "permissions": ["webRequest", "storage", "tabs"],
+    "permissions": ["webRequest", "storage", "tabs", "declarativeNetRequest"],
+    "host_permissions": [
+      "*://*/*"
+    ],
     "background": {
       "service_worker": "background.js"
     },
