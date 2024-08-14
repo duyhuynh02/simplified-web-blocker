@@ -5,10 +5,31 @@ document.getElementById('addSite').addEventListener('click', () => {
         let blockedSites = result.blockedSites || []; 
         blockedSites.push(site); 
         chrome.storage.sync.set({ blockedSites: blockedSites }, () => {
-            updateBlockingRules(blockedSites);
+            if (chrome.runtime.lastError) {
+                console.error("Failed to set blocked sites:", chrome.runtime.lastError);
+            } else {
+                updateBlockingRules(blockedSites);
+            }
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    chrome.storage.sync.get(['blockedSites'], (result) => {
+        if (chrome.runtime.lastError) {
+            console.error("Failed to get blocked sites:", chrome.runtime.lastError);
+        } else {
+            const websitesContainer = document.getElementById('website-container');
+            let blockedSites = result.blockedSites || []; 
+            blockedSites.forEach((site, index) => {
+                let li = document.createElement('li');
+                li.textContent = site; 
+                websitesContainer.appendChild(li);
+            })
+        }
+    });
+})
+
 
 function updateBlockingRules(sites) {
     // An array for websites 
