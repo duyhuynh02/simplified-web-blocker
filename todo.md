@@ -5,7 +5,7 @@
 - [x] Complete popup.js -> get all the blocked websites 
 - [x] Complete background.js -> block website function 
 - [x] Show list of blocked websites 
-- [ ] Remove blocked websites 
+- [x] Remove blocked websites 
 - [ ] Add a time (30 - 60) for leisure time 
 - [x] Clear existing after add new site 
 - [x] Show the new blocked website immediately 
