@@ -1,9 +1,12 @@
 // main 
 document.getElementById('addSite').addEventListener('click', () => { 
-    let site = document.getElementById('siteInput').value;
+    let siteInput = document.getElementById('siteInput');
+    let site = siteInput.value;
     chrome.storage.sync.get(['blockedSites'], (result) => {
         let blockedSites = result.blockedSites || []; 
         blockedSites.push(site); 
+        // clear existing site after push 
+        siteInput.value = '';
         chrome.storage.sync.set({ blockedSites: blockedSites }, () => {
             if (chrome.runtime.lastError) {
                 console.error("Failed to set blocked sites:", chrome.runtime.lastError);
