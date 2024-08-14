@@ -1,12 +1,4 @@
-chrome.runtime.onInstalled.addListener(() => {
-    // First Initialization 
-    chrome.storage.sync.get(['blockedSites'], (result) => {
-        const blockedSites = result.blockedSites || [];
-        updateBlockingRules(blockedSites);
-    })
-})
-
-function updateBlockingRules(sites) {
+export function updateBlockingRules(sites) {
     // An array for websites 
     const dynamicWebsitesArray = sites.map((site, index) => ({
         id: index + 1, 
