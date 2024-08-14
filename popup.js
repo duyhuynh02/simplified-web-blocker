@@ -13,7 +13,7 @@ document.getElementById('addSite').addEventListener('click', () => {
             } else {
                 // update the blocking rule 
                 updateBlockingRules(blockedSites);
-                
+
                 // update to show immediately 
                 const websitesContainer = document.getElementById('website-container');
                 let li = document.createElement('li');
@@ -32,9 +32,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const websitesContainer = document.getElementById('website-container');
             let blockedSites = result.blockedSites || []; 
             blockedSites.forEach((site, index) => {
+                // Create li element 
                 let li = document.createElement('li');
                 li.textContent = site; 
-                websitesContainer.appendChild(li);
+
+                // Create delete element 
+                let deleteButton = document.createElement('button');
+                deleteButton.textContent = "Delete"; 
+
+                // Create div element and add two li and delete elements into it 
+                let div = document.createElement('div');
+                div.className = 'list-website-div';
+                div.appendChild(li);
+                div.appendChild(deleteButton);
+
+                // Finally add to website-container for each element 
+                websitesContainer.appendChild(div);
             })
         }
     });
