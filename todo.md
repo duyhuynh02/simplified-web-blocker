@@ -8,5 +8,5 @@
 - [ ] Remove blocked websites 
 - [ ] Add a time (30 - 60) for leisure time 
 - [x] Clear existing after add new site 
-
+- [x] Show the new blocked website immediately 
 

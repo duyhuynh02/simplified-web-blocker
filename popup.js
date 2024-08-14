@@ -11,7 +11,14 @@ document.getElementById('addSite').addEventListener('click', () => {
             if (chrome.runtime.lastError) {
                 console.error("Failed to set blocked sites:", chrome.runtime.lastError);
             } else {
+                // update the blocking rule 
                 updateBlockingRules(blockedSites);
+                
+                // update to show immediately 
+                const websitesContainer = document.getElementById('website-container');
+                let li = document.createElement('li');
+                li.textContent = site;
+                websitesContainer.appendChild(li);
             }
         });
     });
