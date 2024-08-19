@@ -37,6 +37,28 @@
                 font-size: 16px; 
             }
 
+            #countdown {
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 2em;
+                font-weight: bold;
+                color: #FF3E00;
+                background-color: #000;
+                padding: 10px 20px;
+                border-radius: 5px;
+                text-align: center;
+                letter-spacing: 0.15em;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+                animation: neon-blink 1s step-end infinite;
+            }
+
+            @keyframes neon-blink {
+                from {
+                    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+                }
+                to {
+                    text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc, 0 0 60px #00ffcc;
+                }
+            }
         </style>
     </head>
     <body>
