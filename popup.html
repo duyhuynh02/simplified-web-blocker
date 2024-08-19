@@ -28,6 +28,14 @@
                 font-size: 12px;
                 margin: 0 10px; 
             }
+            #optionsForm button {
+                background-color: #c0730e;
+                border: none;
+                color: white;
+                padding: 8px 16px;
+                text-align: center;
+                font-size: 16px; 
+            }
 
         </style>
     </head>
@@ -35,6 +43,19 @@
         <h1>Choose the website you want to block</h1>
         <input type="text" id="siteInput" placeholder="Enter website">
         <button id="addSite">Add site</button>
+
+        <form id="optionsForm">
+            <input type="radio" id="option1" name="option" value="30">
+            <label for="option1">30 Minutes</label><br>
+            <input type="radio" id="option2" name="option" value="60">
+            <label for="option2">60 Minutes</label><br>
+            <input type="radio" id="option3" name="option" value="unlimited" checked>
+            <label for="option3">Unlimited</label><br>
+            <button type="button" id="selectedOptionBtn">Select</button>
+        </form>
+        <p id="selectedOption"></p>
+        
+        <p id="countdown"></p>
         <h2>List of blocked sites</h2>
         <div id="website-container"></div>
         <script src="popup.js"></script>

@@ -1,9 +1,26 @@
+// Initialize time 
+const defaultValue = "unlimited"
+let selectedValue = defaultValue 
+
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
-    chrome.storage.sync.get(['blockedSites'], (result) => {
+    chrome.storage.sync.get(['blockedSites', 'countDownDate'], (result) => {
         if (chrome.runtime.lastError) {
             console.error("Failed to get blocked sites:", chrome.runtime.lastError);
         } else {
+            // Handle time - default time is unlimited 
+            if (result.countDownDate) {
+                let remainingTime = result.countDownDate - new Date().getTime(); 
+                if (remainingTime > 0) {
+                    countDownTime(remainingTime / (60 * 1000));
+                } else {
+                    document.getElementById("countdown").innerHTML = 'Time is up'; 
+                }
+            } else {
+                document.getElementById("countdown").innerHTML = "Unlimited time";
+            }
+
+            // Loading all the blocked sites for the first initialization
             const websitesContainer = document.getElementById('website-container');
             let blockedSites = result.blockedSites || []; 
             blockedSites.forEach((site, index) => {
@@ -33,7 +50,7 @@ document.getElementById('addSite').addEventListener('click', () => {
     let siteInput = document.getElementById('siteInput');
     // To clear the existing data later; 
     let site = siteInput.value;
-    
+
     // whitespace is not approriate 
     if (site.trim()) {
         chrome.storage.sync.get(['blockedSites'], (result) => {
@@ -72,11 +89,46 @@ document.getElementById('addSite').addEventListener('click', () => {
     } 
 });
 
+// Select button
+document.getElementById('selectedOptionBtn').addEventListener('click', () => {
+    let form = document.getElementById('optionsForm'); 
+    let selectedOption = form.querySelector('input[name="option"]:checked');
+
+    // display the chosen one 
+    if (selectedOption) {
+        selectedValue = selectedOption.value; 
+        document.getElementById('selectedOption').innerText = `You selected: ${selectedValue} minutes`; 
+        document.getElementById("countdown").innerHTML = '';
+        // refresh to make sure that ok 
+        window.location.reload();
+        if (selectedValue !== "unlimited") {
+            let timeInMinutes = Number(selectedValue)
+            let countDownDate = new Date().getTime() + timeInMinutes * 60 * 1000;
+
+            // save the countdown date end time 
+            chrome.storage.sync.set({ countDownDate: countDownDate }, () => {
+                if (chrome.runtime.lastError) {
+                    console.error("Failed to save countdown date:", chrome.runtime.lastError);
+                } else {
+                    countDownTime(timeInMinutes);
+                }
+            })
+        } else {
+            chrome.storage.sync.remove('countDownDate', () => {
+                if (chrome.runtime.lastError) {
+                    console.error("Failed to clear countdown date:", chrome.runtime.lastError);
+                } else {
+                    document.getElementById("countdown").innerHTML = "Unlimited time";
+                }
+            })
+        }
+    }
+})
+
 // Remove function 
 document.getElementById('website-container').addEventListener('click', (event) => {
     console.log('Click detected:', event.target);
     if (event.target.tagName === 'BUTTON') {    //must be uppercase for tagName 
-        console.log('hellloo')
         const button = event.target; 
         const removedSite = button.parentElement; 
         const sizeText = removedSite.querySelector('li').textContent; 
@@ -121,4 +173,23 @@ function updateBlockingRules(sites) {
     }, () => {
         console.log("Dynamic blocking rules have been added.")
     })
+}
+
+function countDownTime(time) {      // time is in minute 
+    // Only 3 options: 30 or 60 or unlimited time 
+    let countDownDate = new Date().getTime() + time * 60 * 1000; //change to milliseconds
+    let x = setInterval(() => {
+        let now = new Date().getTime(); 
+        let distance = countDownDate - now;
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)); 
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("countdown").innerHTML = `${minutes} m ${seconds} s`;
+
+        // Countdown is done, show to users 
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("countdown").innerHTML = 'Time is up!';
+        }
+
+    }, 1000);
 }
