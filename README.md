@@ -1,6 +1,8 @@
 # Simplified Website Blocker
 This Chrome extension allows users to block specific websites and set a countdown timer to automatically unblock them after a specified period. It provides options for blocking websites for 30 minutes, 60 minutes, or indefinitely ("unlimited" time).
 
+![alt text](blocking.png)
+
 ## Features
 - Website Blocking: Users can block specific websites, preventing access to them in the browser.
 - Countdown Timer: Users can set a timer (30 minutes, 60 minutes, or unlimited) after which the blocked sites will be automatically unblocked.
