@@ -10,7 +10,8 @@ This Chrome extension allows users to block specific websites and set a countdow
 ## Installation
 1. Clone or download the repo:
 ```bash
-
+git clone https://github.com/duyhuynh02/simplified-web-blocker.git 
+cd simplified-web-blocker
 ```
 
 2. Load the Extension in Chrome:
